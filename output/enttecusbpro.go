@@ -4,6 +4,8 @@ import (
 	"fmt"
 	"time"
 
+	log "github.com/Sirupsen/logrus"
+
 	"github.com/tarm/serial"
 )
 
@@ -47,7 +49,9 @@ func (eo *ENTTECUSBProOutput) transmit(label byte, data []byte) (err error) {
 		output,
 		0xE7, // End of message delimiter
 	)
-	fmt.Printf("%v\n", output)
+	log.WithFields(log.Fields{
+		"bytes": output,
+	}).Debug("Transmitting bytes")
 	_, err = eo.port.Write(output)
 	return
 }
@@ -60,6 +64,9 @@ It uses this specification: https://www.enttec.com/docs/dmx_usb_pro_api_spec.pdf
 And a sample implementation from python: https://github.com/c0z3n/pySimpleDMX/blob/master/pysimpledmx.py
 */
 func (eo *ENTTECUSBProOutput) Set(state State) (err error) {
+	log.WithFields(log.Fields{
+		"state": state,
+	}).Info("Setting the state")
 	if eo.port == nil {
 		err = eo.init()
 		if err != nil {

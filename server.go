@@ -3,9 +3,11 @@ package main
 import (
 	"encoding/json"
 	"io"
-	"log"
 	"net/http"
+	"os"
 	"strconv"
+
+	log "github.com/Sirupsen/logrus"
 
 	"github.com/saulshanabrook/lige/output"
 )
@@ -36,6 +38,11 @@ func jSONIntMap(b io.ReadCloser) (m map[int]int, err error) {
 
 func makeHandler(o output.Output) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
+		// allow cross domain AJAX requests
+		w.Header().Set("Access-Control-Allow-Origin", "*")
+
+		// set the `Set` method on the pass in output, with the json
+		// of the request turned into a map
 		m, err := jSONIntMap(r.Body)
 
 		if err != nil {
@@ -48,7 +55,11 @@ func makeHandler(o output.Output) http.HandlerFunc {
 }
 
 func main() {
-	output := &output.ENTTECUSBProOutput{COMPort: "/dev/tty.usbserial-EN158833"}
+	log.WithFields(log.Fields{
+		"port":    "8080",
+		"COMPort": os.Args[1],
+	}).Info("Starting HTTP Server")
+	output := &output.ENTTECUSBProOutput{COMPort: os.Args[1]}
 	http.HandleFunc("/", makeHandler(output))
 	err := http.ListenAndServe(":8080", nil)
 	if err != nil {
