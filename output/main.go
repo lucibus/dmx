@@ -1,6 +1,6 @@
 package output
 
-type State map[int]int
+type State map[int]byte
 
 func (s *State) Keys() (keys []int) {
 	for k := range *s {
@@ -9,6 +9,6 @@ func (s *State) Keys() (keys []int) {
 	return
 }
 
-type Output interface {
+type OutputDevice interface {
 	Set(State) error
 }

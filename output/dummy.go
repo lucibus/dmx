@@ -2,11 +2,13 @@ package output
 
 import (
 	"fmt"
+	"time"
 )
 
-type DummyOutput struct{}
+type DummyOutputDevice struct{}
 
-func (do *DummyOutput) Set(state State) (err error) {
+func (do *DummyOutputDevice) Set(state State) (err error) {
 	fmt.Printf("%v\n", state)
+	time.Sleep(time.Second)
 	return
 }

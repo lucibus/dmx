@@ -19,22 +19,22 @@ func mostSignificantByte(b int) byte {
 }
 
 /*
-ENTTECUSBProOutput should be used with an ENTEC DMXUSB PRO device.
+ENTTECUSBProOutputDevice should be used with an ENTEC DMXUSB PRO device.
 First you must install the drivers for the device and make it is available
 on your filesystem. Then pass in the COM Port. (like /dev/tty.usbserial-EN158833)
 */
-type ENTTECUSBProOutput struct {
+type ENTTECUSBProOutputDevice struct {
 	COMPort string
 	port    *serial.Port // don't pass in when you init
 }
 
-func (eo *ENTTECUSBProOutput) init() (err error) {
+func (eo *ENTTECUSBProOutputDevice) init() (err error) {
 	c := &serial.Config{Name: eo.COMPort, Baud: 57600, ReadTimeout: time.Second}
 	eo.port, err = serial.OpenPort(c)
 	return
 }
 
-func (eo *ENTTECUSBProOutput) transmit(label byte, data []byte) (err error) {
+func (eo *ENTTECUSBProOutputDevice) transmit(label byte, data []byte) (err error) {
 	output := []byte{
 		0x7E,  // start of a message delimiter
 		label, // Label to identify type of message "Output Only Send DMX Packet Request"
@@ -58,15 +58,13 @@ func (eo *ENTTECUSBProOutput) transmit(label byte, data []byte) (err error) {
 
 /*
 Set will send the that state out to ENTTeC DMX Pro via serial over USB.
-
 It uses this specification: https://www.enttec.com/docs/dmx_usb_pro_api_spec.pdf
-
 And a sample implementation from python: https://github.com/c0z3n/pySimpleDMX/blob/master/pysimpledmx.py
 */
-func (eo *ENTTECUSBProOutput) Set(state State) (err error) {
+func (eo *ENTTECUSBProOutputDevice) Set(state State) (err error) {
 	log.WithFields(log.Fields{
 		"state": state,
-	}).Info("Setting the state")
+	}).Debug("Setting the state")
 	if eo.port == nil {
 		err = eo.init()
 		if err != nil {
