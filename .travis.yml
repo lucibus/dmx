@@ -1,0 +1,18 @@
+language: go
+
+go:
+  - 1.4
+  - tip
+
+after_intall:
+  - go get -u github.com/golang/lint/golint
+
+script:
+  - go test -race
+  - go tool vet -v -test .
+  - golint .
+
+matrix:
+  fast_finish: true
+  allow_failures:
+    - go: tip
