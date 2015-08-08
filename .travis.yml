@@ -4,7 +4,7 @@ go:
   - 1.4
   - tip
 
-after_intall:
+before_script:
   - go get -u github.com/golang/lint/golint
 
 script:
