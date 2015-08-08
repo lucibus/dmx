@@ -5,12 +5,12 @@ go:
   - tip
 
 before_script:
-  - go get -u github.com/golang/lint/golint
+  - go get -t -v github.com/golang/lint/golint
 
 script:
-  - go test -race
-  - go vet -x
-  - golint .
+  - go test -race ./...
+  - go vet -x ./...
+  - golint . ./...
 
 matrix:
   fast_finish: true
