@@ -7,14 +7,14 @@ import (
 )
 
 func initTestDriver() *Driver {
-	a := NewAdaptor("bot", "/dev/null")
+	a := NewUSBEnttecProAdaptor("bot", "/dev/null")
 	a.sp = testReadWriteCloser{}
 	return NewDriver(a, "bot")
 }
 
 func TestDriver(t *testing.T) {
 	Convey("Given a driver", t, func() {
-		a := NewAdaptor("bot", "/dev/null")
+		a := NewUSBEnttecProAdaptor("bot", "/dev/null")
 		a.sp = testReadWriteCloser{}
 		d := NewDriver(a, "bot")
 

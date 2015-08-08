@@ -7,9 +7,9 @@ import (
 	. "github.com/smartystreets/goconvey/convey"
 )
 
-func TestAdaptor(t *testing.T) {
+func TestUSBEnttecProAdaptor(t *testing.T) {
 	Convey("Given an adaptor", t, func() {
-		a := NewAdaptor("bot", "/dev/null")
+		a := NewUSBEnttecProAdaptor("bot", "/dev/null")
 		trwc := createTestReadWriteCloser()
 		a.connect = func(port string) (io.ReadWriteCloser, error) {
 			return trwc, nil

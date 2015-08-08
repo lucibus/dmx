@@ -36,7 +36,7 @@ type packet struct {
 // Driver represents a DMX USB Pro
 type Driver struct {
 	name          string
-	adaptor       *Adaptor
+	adaptor       *USBEnttecProAdaptor
 	packetChannel chan *packet
 	universeSize  int
 	cmd           gobot.Commander
@@ -47,7 +47,7 @@ type Driver struct {
 // Adds the following API Commands:
 // 	"OutputDMX" - See Driver.OutputDMX
 // 	"SetUniverseSize" - See Driver.SetUniverseSize
-func NewDriver(a *Adaptor, name string) *Driver {
+func NewDriver(a *USBEnttecProAdaptor, name string) *Driver {
 	s := &Driver{
 		name:         name,
 		adaptor:      a,

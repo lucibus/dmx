@@ -10,7 +10,7 @@ import (
 func main() {
 	gbot := gobot.NewGobot()
 
-	adaptor := dmx.NewAdaptor("dmx", "/dev/tty.usbserial-EN158833")
+	adaptor := dmx.NewUSBEnttecProAdaptor("dmx", "/dev/tty.usbserial-EN158833")
 	driver := dmx.NewDriver(adaptor, "dmx")
 
 	work := func() {

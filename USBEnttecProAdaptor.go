@@ -30,19 +30,19 @@ func (e *InvalidAddressError) Error() string {
 }
 
 // verify that it fulfils the Adaptor interface when compiled
-var _ gobot.Adaptor = (*Adaptor)(nil)
+var _ gobot.Adaptor = (*USBEnttecProAdaptor)(nil)
 
-// Adaptor represents a Connection to a DMX USB Pro
-type Adaptor struct {
+// USBEnttecProAdaptor represents a Connection to a DMX USB Pro
+type USBEnttecProAdaptor struct {
 	name    string
 	port    string
 	sp      io.ReadWriteCloser
 	connect func(port string) (io.ReadWriteCloser, error)
 }
 
-// NewAdaptor returns a new Adaptor given a name and port
-func NewAdaptor(name string, port string) *Adaptor {
-	return &Adaptor{
+// NewUSBEnttecProAdaptor returns a new Adaptor given a name and port
+func NewUSBEnttecProAdaptor(name string, port string) *USBEnttecProAdaptor {
+	return &USBEnttecProAdaptor{
 		name: name,
 		port: port,
 		connect: func(port string) (io.ReadWriteCloser, error) {
@@ -52,13 +52,13 @@ func NewAdaptor(name string, port string) *Adaptor {
 }
 
 // Name returns the name.
-func (a *Adaptor) Name() string { return a.name }
+func (a *USBEnttecProAdaptor) Name() string { return a.name }
 
 // Port returns the port.
-func (a *Adaptor) Port() string { return a.port }
+func (a *USBEnttecProAdaptor) Port() string { return a.port }
 
 // Connect initiates a connection.
-func (a *Adaptor) Connect() (errs []error) {
+func (a *USBEnttecProAdaptor) Connect() (errs []error) {
 	sp, err := a.connect(a.Port())
 	if err != nil {
 		return []error{err}
@@ -68,7 +68,7 @@ func (a *Adaptor) Connect() (errs []error) {
 }
 
 // Finalize closes the connection.
-func (a *Adaptor) Finalize() (errs []error) {
+func (a *USBEnttecProAdaptor) Finalize() (errs []error) {
 	err := a.sp.Close()
 	if err != nil {
 		return []error{err}
@@ -80,7 +80,7 @@ func (a *Adaptor) Finalize() (errs []error) {
 //
 // All addresses not provided will be set to the lowest value, up the the
 // maximum address, which is the universe size.
-func (a *Adaptor) OutputDMX(data map[int]byte, universeSize int) error {
+func (a *USBEnttecProAdaptor) OutputDMX(data map[int]byte, universeSize int) error {
 
 	if a.sp == nil {
 		return &NotConnectedError{}
@@ -110,7 +110,7 @@ func mostSignificantByte(b int) byte {
 	return byte((b >> 8) & 0xFF)
 }
 
-func (a *Adaptor) sendMessage(label int, data []byte) error {
+func (a *USBEnttecProAdaptor) sendMessage(label int, data []byte) error {
 	output := []byte{
 		0x7E,                            // start of a message delimiter
 		byte(label),                     // Label to identify type of message "Output Only Send DMX Packet Request"
