@@ -30,6 +30,7 @@ func (e *InvalidAddressError) Error() string {
 }
 
 // verify that it fulfils the Adaptor interface when compiled
+var _ Adaptor = (*USBEnttecProAdaptor)(nil)
 var _ gobot.Adaptor = (*USBEnttecProAdaptor)(nil)
 
 // USBEnttecProAdaptor represents a Connection to a DMX USB Pro
