@@ -1,4 +1,4 @@
-package dmxusbpro
+package main
 
 type testReadWriteCloser struct {
 	written *[][]byte

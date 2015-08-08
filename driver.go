@@ -1,4 +1,4 @@
-package dmxusbpro
+package main
 
 // Modeled on the API docs http://www.enttec.com/docs/dmx_usb_pro_api_spec.pdf
 

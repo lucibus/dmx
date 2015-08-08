@@ -1,4 +1,4 @@
-package dmxusbpro
+package main
 
 import (
 	"testing"
