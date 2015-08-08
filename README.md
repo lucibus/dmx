@@ -24,7 +24,7 @@ You need to install the drivers for that device, so that it shows up as serial
 device. On my mac I had to [follow this tutorial](http://www.mommosoft.com/blog/2014/10/24/ftdi-chip-and-os-x-10-10/)
 and then it appeared as `/dev/tty.usbserial-EN158833`.
 
-Check out `example/main.go` for example usage.
+Check out [`example/main.go`](example/main.go) for example usage.
 
 # Testing
 
