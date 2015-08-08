@@ -1,4 +1,4 @@
-package main
+package dmx
 
 type testReadWriteCloser struct {
 	written *[][]byte

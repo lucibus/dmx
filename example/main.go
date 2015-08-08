@@ -10,8 +10,8 @@ import (
 func main() {
 	gbot := gobot.NewGobot()
 
-	adaptor := dmxusbpro.NewAdaptor("dmx", "/dev/tty.usbserial-EN158833")
-	driver := dmxusbpro.NewDriver(adaptor, "dmx")
+	adaptor := dmx.NewAdaptor("dmx", "/dev/tty.usbserial-EN158833")
+	driver := dmx.NewDriver(adaptor, "dmx")
 
 	work := func() {
 		gobot.Every(3*time.Millisecond, func() {
