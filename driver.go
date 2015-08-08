@@ -36,7 +36,7 @@ type packet struct {
 // Driver represents a DMX USB Pro
 type Driver struct {
 	name          string
-	adaptor       *USBEnttecProAdaptor
+	adaptor       Adaptor
 	packetChannel chan *packet
 	universeSize  int
 	cmd           gobot.Commander
