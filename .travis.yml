@@ -9,7 +9,7 @@ before_script:
 
 script:
   - go test -race
-  - go tool vet -v -test .
+  - go tool vet -v .
   - golint .
 
 matrix:
