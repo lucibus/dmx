@@ -61,7 +61,7 @@ func TestAdaptor(t *testing.T) {
 					So(a.OutputDMX(map[int]byte{}, 24), ShouldBeNil)
 					b := []byte("\x7e\x06\x19\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\xe7")
 					So(trwc.written, ShouldResemble, &[][]byte{b})
-				})]
+				})
 			})
 		})
 		Convey("Should raise an error when the address is out of range", func() {
