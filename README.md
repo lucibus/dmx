@@ -1,5 +1,8 @@
 # DMX
 
+[![Build Status](https://img.shields.io/travis/lucibus/dmx/master.svg)](https://travis-ci.org/lucibus/dmx)
+[![Godoc](https://img.shields.io/badge/godoc-master-blue.svg)](http://godoc.org/github.com/lucibus/dmx)
+
 DMX output control for [Gobot](https://github.com/lucibus/dmx).
 
 > [DMX512](https://en.wikipedia.org/wiki/DMX512) (Digital Multiplex) is a standard for digital communication networks that are commonly used to control stage lighting and effects. It was originally intended as a standardized method for controlling light dimmers, which, prior to DMX512, had employed various incompatible proprietary protocols. It soon became the primary method for linking controllers (such as a lighting console) to dimmers and special effects devices such as fog machines and intelligent lights. DMX has also expanded to uses in non-theatrical interior and architectural lighting, at scales ranging from strings of Christmas lights to electronic billboards. DMX can now be used to control almost anything, reflecting its popularity in theatres and venues.
