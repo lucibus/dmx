@@ -9,7 +9,7 @@ before_script:
 
 script:
   - go test -race
-  - go tool vet -v USBEnttecProAdaptor.go  driver.go
+  - go vet -x
   - golint .
 
 matrix:
