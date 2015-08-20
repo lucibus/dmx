@@ -22,11 +22,15 @@ func TestDebugAdaptor(t *testing.T) {
 		Convey("OutputDMX", func() {
 			Convey("Should set LastOutput", func() {
 				So(a.OutputDMX(map[int]byte{1: 255}, 512), ShouldBeNil)
-				So(a.LastOutput, ShouldResemble, map[int]byte{1: 255})
+				So(a.GetLastOutput(), ShouldResemble, map[int]byte{1: 255})
 			})
 			Convey("Should set LastUniverseSize", func() {
 				So(a.OutputDMX(map[int]byte{1: 255}, 512), ShouldBeNil)
-				So(a.LastUniverseSize, ShouldEqual, 512)
+				So(a.GetLastUniverseSize(), ShouldEqual, 512)
+			})
+			Convey("Shouldn't cause a race condition", func() {
+				go a.OutputDMX(map[int]byte{1: 255}, 512)
+				go a.OutputDMX(map[int]byte{1: 10}, 512)
 			})
 		})
 	})

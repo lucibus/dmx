@@ -74,5 +74,10 @@ func TestUSBEnttecProAdaptor(t *testing.T) {
 				So(a.OutputDMX(map[int]byte{51: 12}, 50), ShouldResemble, &InvalidAddressError{Address: 51, UniverseSize: 50})
 			})
 		})
+		Convey("Should allow asynchronous read and write", func() {
+			a.Connect()
+			go a.OutputDMX(map[int]byte{1: 255}, 512)
+			go a.OutputDMX(map[int]byte{1: 10}, 512)
+		})
 	})
 }

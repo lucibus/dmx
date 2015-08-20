@@ -3,6 +3,7 @@ package dmx
 import (
 	"fmt"
 	"io"
+	"sync"
 
 	"github.com/hybridgroup/gobot"
 	"github.com/tarm/goserial"
@@ -39,6 +40,7 @@ type USBEnttecProAdaptor struct {
 	port    string
 	sp      io.ReadWriteCloser
 	connect func(port string) (io.ReadWriteCloser, error)
+	mutex   sync.Mutex
 }
 
 // NewUSBEnttecProAdaptor returns a new Adaptor given a name and port
@@ -82,7 +84,8 @@ func (a *USBEnttecProAdaptor) Finalize() (errs []error) {
 // All addresses not provided will be set to the lowest value, up the the
 // maximum address, which is the universe size.
 func (a *USBEnttecProAdaptor) OutputDMX(data map[int]byte, universeSize int) error {
-
+	a.mutex.Lock()
+	defer a.mutex.Unlock()
 	if a.sp == nil {
 		return &NotConnectedError{}
 	}
