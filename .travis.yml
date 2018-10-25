@@ -5,7 +5,7 @@ go:
   - tip
 
 before_script:
-  - go get -t -v github.com/golang/lint/golint
+  - go get -t -v golang.org/x/lint/golint
 
 script:
   - go test -race ./...
